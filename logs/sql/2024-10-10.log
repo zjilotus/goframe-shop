@@ -1,0 +1,2 @@
+2024-10-10 11:35:34.341 [DEBU] {b416f92417fafc17c77c17533073d6dd} [ 24 ms] [default] [shop] [rows:7  ] SHOW FULL COLUMNS FROM `rotation_info`
+2024-10-10 11:35:34.358 [DEBU] {b416f92417fafc17c77c17533073d6dd} [ 16 ms] [default] [shop] [rows:1  ] INSERT INTO `rotation_info`(`pic_url`,`link`,`sort`,`created_at`,`updated_at`) VALUES('123','123',23,'2024-10-10 11:35:34','2024-10-10 11:35:34') 
