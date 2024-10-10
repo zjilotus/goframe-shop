@@ -1,2 +1,6 @@
 2024-10-10 11:35:34.341 [DEBU] {b416f92417fafc17c77c17533073d6dd} [ 24 ms] [default] [shop] [rows:7  ] SHOW FULL COLUMNS FROM `rotation_info`
 2024-10-10 11:35:34.358 [DEBU] {b416f92417fafc17c77c17533073d6dd} [ 16 ms] [default] [shop] [rows:1  ] INSERT INTO `rotation_info`(`pic_url`,`link`,`sort`,`created_at`,`updated_at`) VALUES('123','123',23,'2024-10-10 11:35:34','2024-10-10 11:35:34') 
+2024-10-10 17:06:40.747 [DEBU] {c48b45a8280cfd17ec032a3416fdfbbc} [  4 ms] [default] [shop] [rows:0  ] [txid:1] BEGIN
+2024-10-10 17:06:40.753 [DEBU] {c48b45a8280cfd17ec032a3416fdfbbc} [  5 ms] [default] [shop] [rows:7  ] [txid:1] SHOW FULL COLUMNS FROM `rotation_info`
+2024-10-10 17:06:40.756 [DEBU] {c48b45a8280cfd17ec032a3416fdfbbc} [  3 ms] [default] [shop] [rows:1  ] [txid:1] DELETE FROM `rotation_info` WHERE `id`=8
+2024-10-10 17:06:40.762 [DEBU] {c48b45a8280cfd17ec032a3416fdfbbc} [  6 ms] [default] [shop] [rows:0  ] [txid:1] COMMIT
