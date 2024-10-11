@@ -12,7 +12,6 @@ type RotationReq struct {
 }
 
 type RotationRes struct {
-	// todo
 	// g.Meta `mine:"text/html" exam ple"string"`
 	RotationId int `json:"rotationId"`
 }
