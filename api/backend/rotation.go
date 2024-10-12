@@ -13,7 +13,7 @@ type RotationReq struct {
 
 type RotationRes struct {
 	// g.Meta `mine:"text/html" exam ple"string"`
-	RotationId int `json:"rotationId"`
+	RotationId int `json:"rotation_id"`
 }
 
 type RotationDeleteReq struct {
@@ -32,6 +32,7 @@ type RotationUpdateReq struct {
 }
 
 type RotationUpdateRes struct {
+	Id uint `json:"id"`
 }
 
 type RotationGetListCommonReq struct {

@@ -52,6 +52,7 @@ func (s *sPosition) Update(ctx context.Context, in model.PositionUpdateInput) er
 			Ctx(ctx).
 			Data(in).
 			FieldsEx(dao.PositionInfo.Columns().Id).
+			Where(dao.PositionInfo.Columns().Id, in.Id).
 			Update()
 		return err
 	})

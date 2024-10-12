@@ -52,6 +52,7 @@ func (s *sRotation) Update(ctx context.Context, in model.RotationUpdateInput) er
 			Ctx(ctx).
 			Data(in).
 			FieldsEx(dao.RotationInfo.Columns().Id).
+			Where(dao.RotationInfo.Columns().Id, in.Id).
 			Update()
 		return err
 	})

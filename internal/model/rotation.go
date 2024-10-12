@@ -67,11 +67,11 @@ type RotationSearchOutputItem struct {
 	RotationGetListOutputItem
 }
 
-type RotationListItem struct {
-	Id        uint        `json:"id"`
-	PicUrl    string      `json:"pic_url"`
-	Link      string      `json:"link"`
-	Sort      int         `json:"sort"`
-	CreatedAt *gtime.Time `json:"created_at"`
-	UpdatedAt *gtime.Time `json:"updated_at"`
-}
+//type RotationListItem struct {
+//	Id        uint        `json:"id"`
+//	PicUrl    string      `json:"pic_url"`
+//	Link      string      `json:"link"`
+//	Sort      int         `json:"sort"`
+//	CreatedAt *gtime.Time `json:"created_at"`
+//	UpdatedAt *gtime.Time `json:"updated_at"`
+//}
