@@ -14,10 +14,10 @@ type LoginDoReq struct {
 
 // for jwt
 type LoginDoRes struct {
-	Info interface{} `json:"info"`
+	//Info interface{} `json:"info"`
 	//Referer string      `json:"referer" dc:"引导客户端跳转地址"`
-	//Token  string    `json:"token"`
-	//Expire time.Time `json:"expire"`
+	Token  string    `json:"token"`
+	Expire time.Time `json:"expire"`
 }
 
 // for gtoken
@@ -31,7 +31,7 @@ type LoginRes struct {
 }
 
 type RefreshTokenReq struct {
-	g.Meta `path:"/refresh_token" method:"post"`
+	g.Meta `path:"/backend/refresh_token" method:"post"`
 }
 
 type RefreshTokenRes struct {
@@ -40,7 +40,7 @@ type RefreshTokenRes struct {
 }
 
 type LogoutReq struct {
-	g.Meta `path:"/logout" method:"post"`
+	g.Meta `path:"/backend/logout" method:"post"`
 }
 
 type LogoutRes struct {
