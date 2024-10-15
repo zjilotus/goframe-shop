@@ -18,8 +18,6 @@ import (
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/net/ghttp"
 	"github.com/gogf/gf/v2/os/gcmd"
-
-	"goframe-shop/internal/controller/hello"
 )
 
 var (
@@ -30,7 +28,7 @@ var (
 		Func: func(ctx context.Context, parser *gcmd.Parser) (err error) {
 			s := g.Server()
 			// 启动gtoken
-			gfToken := &gtoken.GfToken{
+			gfAdminToken := &gtoken.GfToken{
 				ServerName:       "shop",
 				CacheMode:        2, // gredis
 				LoginPath:        "/backend/login",
@@ -42,20 +40,24 @@ var (
 				MultiLogin:       true,
 				AuthAfterFunc:    authAfterFunc,
 			}
-			// 认证接口
+			//todo 抽取方法
+			err = gfAdminToken.Start()
+			if err != nil {
+				return err
+			}
 			s.Group("/", func(group *ghttp.RouterGroup) {
 				//group.Middleware(ghttp.MiddlewareHandlerResponse)
 				group.Middleware(
+					service.Middleware().CORS,
 					service.Middleware().Ctx,
 					service.Middleware().ResponseHandler,
 				)
 				// gtoken中间建绑定
-				err := gfToken.Middleware(ctx, group)
-				if err != nil {
-					panic(err)
-				}
+				//err := gfToken.Middleware(ctx, group)
+				//if err != nil {
+				//	panic(err)
+				//}
 				group.Bind(
-					hello.NewV1(),
 					controller.Rotation,     // 轮播图
 					controller.Position,     // 手工位
 					controller.Admin.List,   // 管理员
@@ -64,10 +66,15 @@ var (
 					controller.Admin.Delete, // 管理员
 					controller.Login,        // 登录
 					controller.Data,         // 数据大屏
+					controller.Role,         // 角色
 				)
 				// Special handler that needs authentication.
 				group.Group("/", func(group *ghttp.RouterGroup) {
 					//group.Middleware(service.Middleware().Auth)  // for jwt
+					err := gfAdminToken.Middleware(ctx, group)
+					if err != nil {
+						panic(err)
+					}
 					group.ALLMap(g.Map{
 						"/backend/admin/info": controller.Admin.Info,
 					})
