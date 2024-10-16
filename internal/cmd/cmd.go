@@ -79,6 +79,9 @@ var (
 					group.ALLMap(g.Map{
 						"/backend/admin/info": controller.Admin.Info,
 					})
+					group.Bind(
+						controller.File,
+					)
 				})
 			})
 			s.Run()
