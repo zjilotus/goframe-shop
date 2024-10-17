@@ -1,6 +1,9 @@
 package consts
 
 const (
+	ProjectName              = "goframe-shop"
+	ProjectUsage             = "ilotus"
+	ProjectBrief             = "start http server"
 	Version                  = "v0.2.0"             // 当前服务版本(用于模板展示)
 	CaptchaDefaultName       = "CaptchaDefaultName" // 验证码默认存储空间名称
 	ContextKey               = "ContextKey"         // 上下文变量存储键名，前后端系统共享
@@ -10,5 +13,11 @@ const (
 	CtxAdminName             = "CtxAdminName"
 	CtxAdminIsAdmin          = "CtxAdminIsAdmin"
 	CtxAdminRoleIds          = "CtxAdminRoleIds"
-	CodeMissingParameterMsg  = "请检查是否缺少参数"
+	CacheModeRedis           = 2
+	BackendServerName        = "goframe-shop"
+	MultiLogin               = true
+	GTokenExpireIn           = 10 * 24 * 60 * 60
+	// 统一管理错误信息
+	CodeMissingParameterMsg = "请检查是否缺少参数"
+	ErrLoginFaulMsg         = "登录失败，账号或密码错误"
 )
