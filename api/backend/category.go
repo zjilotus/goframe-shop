@@ -49,3 +49,12 @@ type CategoryGetListCommonRes struct {
 	Size  int         `json:"size" description:"分页数量"`
 	Total int         `json:"total" description:"数据总数"`
 }
+
+type CategoryGetListAllCommonReq struct {
+	g.Meta `path:"/category/list/all" method:"get" tags:"商品分类" summary:"商品分类全部列表接口"`
+}
+
+type CategoryGetListAllCommonRes struct {
+	List  interface{} `json:"list" dc:"列表"`
+	Total int         `json:"total" dc:"数据总数"`
+}

@@ -18,6 +18,7 @@ type (
 		Update(ctx context.Context, in model.CategoryUpdateInput) error
 		// GetList 查询分类列表
 		GetList(ctx context.Context, in model.CategoryGetListInput) (out *model.CategoryGetListOutput, err error)
+		GetListAll(ctx context.Context, in model.CategoryGetListInput) (out *model.CategoryGetListOutput, err error)
 	}
 )
 
