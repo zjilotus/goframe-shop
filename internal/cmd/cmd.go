@@ -22,6 +22,7 @@ var (
 			if err != nil {
 				return err
 			}
+			// 管理后台路由组
 			s.Group("/backend", func(group *ghttp.RouterGroup) {
 				//group.Middleware(ghttp.MiddlewareHandlerResponse)
 				group.Middleware(
@@ -31,16 +32,8 @@ var (
 				)
 				// 不需要登录的路由组绑定
 				group.Bind(
-					controller.Rotation,     // 轮播图
-					controller.Position,     // 手工位
-					controller.Admin.List,   // 管理员
-					controller.Admin.Update, // 管理员
 					controller.Admin.Create, // 管理员
-					controller.Admin.Delete, // 管理员
 					controller.Login,        // 登录
-					controller.Data,         // 数据大屏
-					controller.Role,         // 角色
-					controller.Permission,   // 权限
 				)
 				// 需要登录的路由组绑定
 				group.Group("/", func(group *ghttp.RouterGroup) {
@@ -51,8 +44,16 @@ var (
 					}
 					group.ALLMap(g.Map{
 						"/admin/info": controller.Admin.Info,
-					})
+					}) // ALLMap 和 Bind 两种绑定路由的方式
 					group.Bind(
+						controller.Admin.List,   // 管理员
+						controller.Admin.Update, // 管理员
+						controller.Admin.Delete, // 管理员
+						controller.Rotation,     // 轮播图
+						controller.Position,     // 手工位
+						controller.Data,         // 数据大屏
+						controller.Role,         // 角色
+						controller.Permission,   // 权限
 						controller.File,         // 从0到1实现文件入库
 						controller.Upload,       // 实现可跨项目使用的文件上云工具类
 						controller.Category,     // 商品分类管理
@@ -63,6 +64,19 @@ var (
 						controller.Article,      // 文章管理&CMS
 					)
 				})
+			})
+
+			// 前台项目路由组
+			s.Group("/frontend", func(group *ghttp.RouterGroup) {
+				group.Middleware(
+					service.Middleware().CORS,
+					service.Middleware().Ctx,
+					service.Middleware().ResponseHandler,
+				)
+				// 不需要登录的路由组绑定
+				group.Bind(
+					controller.User.Register, // 用户注册
+				)
 			})
 			s.Run()
 			return nil
