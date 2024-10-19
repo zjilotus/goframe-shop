@@ -65,7 +65,10 @@ var (
 					)
 				})
 			})
-
+			frontendToken, err := StartFrontendGToken()
+			if err != nil {
+				return err
+			}
 			// 前台项目路由组
 			s.Group("/frontend", func(group *ghttp.RouterGroup) {
 				group.Middleware(
@@ -77,6 +80,15 @@ var (
 				group.Bind(
 					controller.User.Register, // 用户注册
 				)
+
+				// 需要登录鉴权路由组绑定
+				group.Group("/", func(group *ghttp.RouterGroup) {
+					err := frontendToken.Middleware(ctx, group)
+					if err != nil {
+						return
+					}
+					group.Bind()
+				})
 			})
 			s.Run()
 			return nil
