@@ -58,8 +58,9 @@ var (
 						controller.Category,     // 商品分类管理
 						controller.Coupon,       // 商品优惠券管理
 						controller.UserCoupon,   // 用户商品优惠券管理
-						controller.Goods,        // 商品管理'
+						controller.Goods,        // 商品管理
 						controller.GoodsOptions, // 商品规格管理
+						controller.Article,      // 文章管理&CMS
 					)
 				})
 			})
