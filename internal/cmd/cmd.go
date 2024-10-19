@@ -65,6 +65,7 @@ var (
 					)
 				})
 			})
+			// 启动前台gtoken
 			frontendToken, err := StartFrontendGToken()
 			if err != nil {
 				return err
@@ -87,7 +88,9 @@ var (
 					if err != nil {
 						return
 					}
-					group.Bind()
+					group.Bind(
+						controller.User.Info, // 当前登录用户的信息
+					)
 				})
 			})
 			s.Run()
