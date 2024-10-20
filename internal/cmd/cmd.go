@@ -92,6 +92,7 @@ var (
 						controller.User.Info,           // 当前登录用户的信息
 						controller.User.UpdatePassword, // 当前用户修改密码
 						controller.Collection,          // 用户收藏
+						controller.Praise,              // 用户点赞
 					)
 				})
 			})

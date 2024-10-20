@@ -1,6 +1,7 @@
 package collection
 
 import (
+	"github.com/gogf/gf/v2/frame/g"
 	"goframe-shop/internal/consts"
 	"goframe-shop/internal/dao"
 	"goframe-shop/internal/model"
@@ -73,4 +74,35 @@ func (s *sCollection) GetList(ctx context.Context, in model.CollectionListInput)
 		return nil, err
 	}
 	return
+}
+
+// 抽取获得收藏数量的方法 for 商品详情&文章详情
+func CollectionCount(ctx context.Context, objectId uint, collectionType uint8) (count int, err error) {
+	condition := g.Map{
+		dao.CollectionInfo.Columns().ObjectId: objectId,
+		dao.CollectionInfo.Columns().Type:     collectionType,
+	}
+	count, err = dao.CollectionInfo.Ctx(ctx).Where(condition).Count()
+	if err != nil {
+		return 0, err
+	}
+	return count, nil
+}
+
+// 抽取方法 判断当前用户是否收藏 for 商品详情&文章详情
+func CheckIsCollection(ctx context.Context, in model.CheckIsCollection) (bool, error) {
+	condition := g.Map{
+		dao.CollectionInfo.Columns().ObjectId: in.ObjectId,
+		dao.CollectionInfo.Columns().Type:     in.Type,
+		dao.CollectionInfo.Columns().UserId:   ctx.Value(consts.CtxUserId),
+	}
+	count, err := dao.CollectionInfo.Ctx(ctx).Where(condition).Count()
+	if err != nil {
+		return false, err
+	}
+	if count > 0 {
+		return true, nil
+	} else {
+		return false, nil
+	}
 }
