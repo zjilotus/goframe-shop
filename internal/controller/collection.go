@@ -40,3 +40,19 @@ func (c *cCollection) DeleteCollection(ctx context.Context, req *frontend.Delete
 	}
 	return &frontend.DeleteCollectionRes{Id: out.Id}, nil
 }
+
+func (c *cCollection) List(ctx context.Context, req *frontend.ListCollectionReq) (res *frontend.ListCollectionRes, err error) {
+	getListRes, err := service.Collection().GetList(ctx, model.CollectionListInput{
+		Page: req.Page,
+		Size: req.Size,
+		Type: req.Type,
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	return &frontend.ListCollectionRes{List: getListRes.List,
+		Page:  getListRes.Page,
+		Size:  getListRes.Size,
+		Total: getListRes.Total}, nil
+}

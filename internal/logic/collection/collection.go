@@ -1,6 +1,7 @@
 package collection
 
 import (
+	"goframe-shop/internal/consts"
 	"goframe-shop/internal/dao"
 	"goframe-shop/internal/model"
 	"goframe-shop/internal/service"
@@ -40,4 +41,36 @@ func (s *sCollection) DeleteCollection(ctx context.Context, in model.DeleteColle
 		}
 	}
 	return &model.DeleteCollectionOutput{Id: in.Id}, nil
+}
+
+func (s *sCollection) GetList(ctx context.Context, in model.CollectionListInput) (out *model.CollectionListOutput, err error) {
+	m := dao.CollectionInfo.Ctx(ctx)
+	out = &model.CollectionListOutput{
+		Page: in.Page,
+		Size: in.Size,
+		List: []model.CollectionListOutputItem{}, // 数据为空时放回 [] 而不是 null
+	}
+	// 翻页查询
+	listModel := m.Page(in.Page, in.Size)
+	// 条件查询
+	if in.Type != 0 {
+		listModel = listModel.Where(dao.CollectionInfo.Columns().Type, in.Type)
+	}
+
+	out.Total, err = listModel.Count()
+	if err != nil || out.Total == 0 {
+		return out, err
+	}
+
+	if in.Type == consts.CollectionTypeGoods {
+		err = listModel.With(model.GoodsItem{}).Scan(&out.List)
+	} else if in.Type == consts.CollectionTypeArticle {
+		err = listModel.With(model.ArticleItem{}).Scan(&out.List)
+	} else {
+		err = listModel.WithAll().Scan(&out.List)
+	}
+	if err != nil {
+		return nil, err
+	}
+	return
 }
