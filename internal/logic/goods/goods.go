@@ -1,8 +1,11 @@
-package good
+package goods
 
 import (
 	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/util/gconv"
+	"goframe-shop/internal/consts"
 	"goframe-shop/internal/dao"
+	"goframe-shop/internal/logic/collection"
 	"goframe-shop/internal/model"
 	"goframe-shop/internal/model/entity"
 	"goframe-shop/internal/service"
@@ -76,5 +79,19 @@ func (s *sGoods) GetList(ctx context.Context, in model.GoodsGetListInput) (out *
 	if err := listModel.Scan(&out.List); err != nil {
 		return out, err
 	}
+	return
+}
+
+// 商品详情
+func (*sGoods) Detail(ctx context.Context, in model.GoodsDetailInput) (out model.GoodsDetailOutput, err error) {
+	err = dao.GoodsInfo.Ctx(ctx).WithAll().WherePri(in.Id).Scan(&out)
+	if err != nil {
+		return model.GoodsDetailOutput{}, err
+	}
+	data := model.CheckIsCollection{}
+	data.UserId = gconv.Uint(ctx.Value(consts.CtxUserId))
+	data.ObjectId = in.Id
+	data.Type = consts.CollectionTypeGoods
+	out.IsCollection, err = collection.CheckIsCollection(ctx, data)
 	return
 }

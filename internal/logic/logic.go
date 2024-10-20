@@ -14,7 +14,7 @@ import (
 	_ "goframe-shop/internal/logic/coupon"
 	_ "goframe-shop/internal/logic/data"
 	_ "goframe-shop/internal/logic/file"
-	_ "goframe-shop/internal/logic/good"
+	_ "goframe-shop/internal/logic/goods"
 	_ "goframe-shop/internal/logic/goods_options"
 	_ "goframe-shop/internal/logic/login"
 	_ "goframe-shop/internal/logic/middleware"

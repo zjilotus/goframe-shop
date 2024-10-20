@@ -94,7 +94,7 @@ func CheckIsCollection(ctx context.Context, in model.CheckIsCollection) (bool, e
 	condition := g.Map{
 		dao.CollectionInfo.Columns().ObjectId: in.ObjectId,
 		dao.CollectionInfo.Columns().Type:     in.Type,
-		dao.CollectionInfo.Columns().UserId:   ctx.Value(consts.CtxUserId),
+		dao.CollectionInfo.Columns().UserId:   in.UserId,
 	}
 	count, err := dao.CollectionInfo.Ctx(ctx).Where(condition).Count()
 	if err != nil {
