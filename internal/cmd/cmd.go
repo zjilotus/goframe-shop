@@ -95,6 +95,7 @@ var (
 						controller.Collection,          // 用户收藏
 						controller.Praise,              // 用户点赞
 						controller.Comment,             // 用户评论
+						controller.Order.Add,           // 订单添加
 					)
 				})
 			})
